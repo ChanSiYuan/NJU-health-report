@@ -1,0 +1,32 @@
+name: JingYu Health Report Action
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  
+  schedule:
+    - cron: '0 9 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Script
+        env:
+          NJU_USERNAME: ${{ secrets.jy_username }}
+          NJU_PASSWORD: ${{ secrets.jy_password }}
+          CURR_LOCATION: ${{ secrets.jy_home_location }}
+        run: |
+          python run.py
