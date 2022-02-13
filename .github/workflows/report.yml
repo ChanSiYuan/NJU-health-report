@@ -27,6 +27,6 @@ jobs:
         env:
           NJU_USERNAME: ${{ secrets.username }}
           NJU_PASSWORD: ${{ secrets.password }}
-          CURR_LOCATION: ${{ secrets.csy_home_location }}
+          CURR_LOCATION: ${{ secrets.location }}
         run: |
           python run.py
